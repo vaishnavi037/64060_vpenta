@@ -1,0 +1,57 @@
+---
+title: "assignment-1"
+author: "Vaishnavi"
+date: "2023-09-10"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Reference :- https://www.kaggle.com/datasets/azminetoushikwasi/epl-21-22-matches-players
+
+```{r}
+library(readr)
+#
+Premier_league <- read_csv("C:/Users/vaishu/Downloads/Premier League 2021-22 Points Table.csv")
+Premier_league
+#Represents the points table of Premier league of the season.
+```
+```{r}
+
+
+library(fBasics)
+options(scipen=999)
+#mean(Premier_league$W)
+#sd(Premier_league$W)
+basicStats(data.frame(Premier_league$MP,Premier_league$W,Premier_league$D,Premier_league$L,Premier_league$GF,Premier_league$GA,Premier_league$GD,Premier_league$Pts,Premier_league$xG,Premier_league$xGA,Premier_league$xGD))
+# Gives descriptive statistics for a selection of quantitative  variables.
+```
+```{r}
+table(Premier_league$Leagues)
+```
+```{r}
+str(Premier_league)
+# The above values represent categorical 
+#descriptive analysis of the variables
+```
+```{r}
+library(caret)
+Model_range_normalized<-preProcess(Premier_league,method = "range")
+Premier_league_normalized=predict(Model_range_normalized,Premier_league)
+summary(Premier_league_normalized)
+#Transformation of variables.
+```
+```{r}
+
+hist(Premier_league$Pts )
+#Graphical representation is a histogram with the selected variable points
+x <- Premier_league$MP
+y <- Premier_league$W
+plot(x, y, main = "Matches played and the number of Wins", xlab = "Matches played", ylab = "Wins")
+
+#The above graphical representation is a scatterplot with the selected variables Matches played and Wins
+```
